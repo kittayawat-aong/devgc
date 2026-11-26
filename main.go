@@ -26,6 +26,10 @@ func run(argv []string) int {
 		fmt.Printf(usage, strings.Join(scan.Types(), " "))
 		return 0
 	}
+	if a.version {
+		fmt.Println("devgc", versionString())
+		return 0
+	}
 
 	root, err := filepath.Abs(a.root)
 	if err == nil {

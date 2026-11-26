@@ -11,6 +11,10 @@ func TestParseArgs(t *testing.T) {
 		t.Errorf("got %+v", a)
 	}
 
+	if a, _ := parseArgs([]string{"--version"}); !a.version {
+		t.Error("--version not parsed")
+	}
+
 	a, err = parseArgs(nil)
 	if err != nil || a.root != "." || a.delete {
 		t.Errorf("default: got %+v, %v (must not delete by default)", a, err)

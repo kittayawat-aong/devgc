@@ -19,6 +19,7 @@ Usage: devgc [folder] [--delete] [--deps] [--only TYPES] [-y]
       --only T    only these types, comma separated, e.g. --only gradle,flutter
   -y, --yes       with --delete: do not ask
   -h, --help      show this help
+      --version   show the version
 
 Types: ` + "%s" + `
 
@@ -27,12 +28,13 @@ e.g. app/build only when app/build.gradle exists.
 `
 
 type args struct {
-	root   string
-	delete bool
-	yes    bool
-	deps   bool
-	only   []string
-	help   bool
+	root    string
+	delete  bool
+	yes     bool
+	deps    bool
+	only    []string
+	help    bool
+	version bool
 }
 
 // parseArgs accepts flags before or after the folder.
@@ -55,6 +57,8 @@ func parseArgs(argv []string) (args, error) {
 			a.deps = true
 		case arg == "-h" || arg == "--help":
 			a.help = true
+		case arg == "--version":
+			a.version = true
 		case arg == "--only" || strings.HasPrefix(arg, "--only="):
 			v := strings.TrimPrefix(arg, "--only=")
 			if arg == "--only" {
